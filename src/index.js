@@ -10,4 +10,3 @@ root.render(
 );
 
 
-// ReactDOM.createRoot(document.getElementById("root")).render(<h1>Test</h1>);

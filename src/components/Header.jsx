@@ -1,12 +1,12 @@
 import React from "react";
-import HighlightIcon from '@mui/icons-material/Highlight';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 function Header() {
   return (
     <header>
       <h1>
-        <HighlightIcon />
-        Keeper
+        <FormatListBulletedIcon  />
+        Keepify
       </h1>
     </header>
   );
