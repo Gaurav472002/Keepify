@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import Zoom from "@mui/material/Zoom";
+import axios from 'axios';
+
 
 function CreateArea(props) {
   const [isExpanded, setExpanded] = useState(false);
 
   const [note, setNote] = useState({
     title: "",
-    content: ""
+    content: "",
+    _id:"",
   });
 
   function handleChange(event) {
@@ -23,12 +26,28 @@ function CreateArea(props) {
   }
 
   function submitNote(event) {
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: ""
-    });
-    event.preventDefault();
+    
+      async function doPostRequest(){
+
+        let payload = {title: note.title, content: note.content, _id: note._id};
+        let res= await axios.post('http://localhost:5000/notes', payload);
+        let data = res.data;
+
+        setNote(previousState =>{
+          return  { ...previousState, _id: data.id }
+        });
+      }
+
+      doPostRequest();
+
+      props.onAdd(note);
+
+      setNote({
+        title:"",
+        content:"",
+        _id:"",
+      });
+      event.preventDefault();
   }
 
   function expand() {

@@ -1,17 +1,71 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+
+
 function Note(props) {
-  function handleClick() {
-    props.onDelete(props.id);
+  const[isEditable, setEditable]= useState(false);
+
+  const [note,SetNote]= useState({
+    title: props.title,
+    content:props.content
+  });
+
+  function handleChange(event){
+    const {name, value}= event.target;
+    SetNote((prevNote)=>{
+      return{
+        ...prevNote,
+        [name]:value
+      };
+    });
   }
+
+  function handleDelete() {
+    props.onDelete(props.id, props._id, note.title, note.content);
+  }
+  
+  function handleModify(){
+    setEditable(true);
+  }
+
+  function handleSave() {
+    setEditable(false);
+    const newTitle = document.getElementById("title-"+props.id).textContent;
+    const newContent = document.getElementById("content-"+props.id).textContent;
+    props.onModify(props.id, props._id, newTitle, newContent, note.title, note.content);
+  }
+
 
   return (
     <div className="note">
-      <h1>{props.title}</h1>
-      <p>{props.content}</p>
-      <button onClick={handleClick}>
+      <h1
+        id={"title-"+props.id} 
+        name="title"
+        onChange={handleChange}
+        contentEditable={isEditable}
+        suppressContentEditableWarning={true}
+        value={note.title}
+      
+      >{note.title}</h1>
+      <p
+        id={"content-"+props.id}
+        name="content"
+        onChange={handleChange}
+        contentEditable={isEditable}
+        suppressContentEditableWarning={true} 
+        value={note.content}
+
+      
+      
+      > {note.content}</p>
+      <button onClick={handleDelete}>
         <DeleteIcon />
+      </button>
+      <button onClick={isEditable ? handleSave : handleModify}>
+        {isEditable ? <SaveIcon /> : <EditIcon />}
       </button>
     </div>
   );
