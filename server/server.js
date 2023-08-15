@@ -52,7 +52,7 @@ app.route("/notes")
 })
 .post(function(req, res) {
     const ind = req.body.id;
-    console.log("ind = " + ind);
+    
     new Note({title: req.body.title, content: req.body.content, id: req.body.id}).save()
     //Note.create({title: req.body.title, content: req.body.content, id: "iddddd"})
     .then( (savedDoc) => {
@@ -75,9 +75,7 @@ app.route("/notes")
 ////
 app.route("/notes/:id")
 .put(function(req, res) {
-    console.log("**** app.route().put");
-    console.log(req.body.title + " " + req.body.content + " " + req.body.oldTitle + " " + req.body.oldContent);
-    console.log("id = " + req.params.id);
+    
     Note.findOneAndReplace(
         { $and: [ { title: req.body.oldTitle }, { content: req.body.oldContent } ] },
         {
