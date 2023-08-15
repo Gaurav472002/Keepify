@@ -1,4 +1,5 @@
-# Keepify   https://keepify.onrender.com/
+# Keepify  
+https://keepify.onrender.com/
 Keepify is a full-stack note manager application built using the MERN (MongoDB, Express, React, Node.js) stack. 
 It allows users to create, organize, edit, and delete notes, providing a seamless and user-friendly experience for managing personal or professional information.
 ![image](https://github.com/Gaurav472002/Keepify/assets/97028366/46843e83-8877-47e4-b030-d500d4dff670)
